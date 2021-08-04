@@ -1,0 +1,57 @@
+{
+  "name": "sistema-empresa",
+  "description": "Sistema de Empresa",
+  "version": "1.0.0",
+  "license": "MIT",
+  "scripts": {
+    "start": "ng sistema-empresa-app",
+    "build": "ng build sistema-empresa-app",
+    "watch": "ng build --watch --configuration development",
+    "test": "ng test sistema-empresa-app",
+    "generate-specs": "angular-spec-generate src/sistema-empresa",
+    "ng": "ng",
+    "e2e": "afe e2e",
+    "version": "afe version"
+  },
+  "typings": "src/sistema-empresa",
+  "private": true,
+  "dependencies": {
+    "express": "^4.17.1",
+    "tslib": "^2.1.0",
+    "xlsx": "^0.17.0"
+  },
+  "devDependencies": {
+    "@angular/animations": "~12.0.2",
+    "@angular/common": "~12.0.2",
+    "@angular/compiler": "~12.0.2",
+    "@angular/core": "~12.0.2",
+    "@angular/forms": "~12.0.2",
+    "@angular/platform-browser": "~12.0.2",
+    "@angular/platform-browser-dynamic": "~12.0.2",
+    "@angular/router": "~12.0.2",
+    "@angular-devkit/build-angular": "~12.0.2",
+    "@angular/cli": "~12.0.2",
+    "@angular/compiler-cli": "~12.0.2",
+    "@types/jasmine": "~3.6.0",
+    "@types/node": "^12.11.1",
+    "jasmine-core": "~3.7.0",
+    "karma": "~6.3.0",
+    "karma-chrome-launcher": "~3.1.0",
+    "karma-coverage": "~2.0.3",
+    "karma-jasmine": "~4.0.0",
+    "karma-jasmine-html-reporter": "^1.5.0",
+    "rxjs": "~6.6.0",
+    "typescript": "~4.2.3",
+    "zone.js": "~0.11.4"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/MatheusCardoso0/Sistema-Empresa.git"
+  },
+  "keywords": [],
+  "author": "Matheus Cardoso dos Santos Andrade",
+  "bugs": {
+    "url": "https://github.com/MatheusCardoso0/Sistema-Empresa/issues"
+  },
+  "homepage": "https://github.com/MatheusCardoso0/Sistema-Empresa#readme"
+}

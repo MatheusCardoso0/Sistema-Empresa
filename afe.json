@@ -1,0 +1,14 @@
+{
+    "version": {
+        "build": true,
+        "tag": true,
+        "test": true
+    },
+    "config": {
+        "build": {
+            "copyAssets": [
+                "./projects/sistema-empresa/src/lib/assets"
+            ]
+        }
+    }
+}
