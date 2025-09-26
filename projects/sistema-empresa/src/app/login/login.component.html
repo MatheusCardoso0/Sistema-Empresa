@@ -1,1 +1,21 @@
-<p>login works!</p>
+<div class="popup-cotacao-backdrop" (click)="fecharLogin($event)" (keydown.escape)="fecharLogin($event)">
+	<div class="popup-cotacao-content shadow rounded p-4 bg-white" style="max-width:400px;margin:40px auto;" (click)="$event.stopPropagation()" (keydown.escape)="fecharLogin($event)">
+		<button class="btn-close float-end" aria-label="Fechar" (click)="fecharLogin($event)"></button>
+		<h2 class="h4 mb-3 text-primary">Login</h2>
+		<form (ngSubmit)="login()" #loginForm="ngForm">
+			<div class="mb-3">
+				<label class="form-label" for="usuario">Usuário</label>
+				<input id="usuario" name="usuario" class="form-control" [(ngModel)]="usuario" required />
+			</div>
+			<div class="mb-3">
+				<label class="form-label" for="senha">Senha</label>
+				<input id="senha" name="senha" class="form-control" [(ngModel)]="senha" required type="password" />
+			</div>
+			<div class="d-flex justify-content-between">
+				<button class="btn btn-primary" type="submit" [disabled]="!loginForm.form.valid">Entrar</button>
+				<button class="btn btn-outline-secondary" type="button" (click)="fecharLogin($event)">Cancelar</button>
+			</div>
+		</form>
+		<div *ngIf="erro" class="erro-login mt-2">Usuário ou senha inválidos.</div>
+	</div>
+</div>
