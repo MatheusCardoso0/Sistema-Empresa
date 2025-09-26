@@ -1,16 +1,24 @@
-import { Component } from '@angular/core';
+import { Component, Renderer2, OnInit, OnDestroy } from '@angular/core';
 
 @Component({
   selector: 'app-login',
   templateUrl: './login.component.html',
   styleUrls: ['./login.component.css']
 })
-export class LoginComponent {
+export class LoginComponent implements OnInit, OnDestroy {
   usuario = '';
   senha = '';
   erro = false;
 
-  constructor() { }
+  constructor(private readonly renderer: Renderer2) { }
+
+  ngOnInit() {
+    this.renderer.addClass(document.body, 'blurred-bg');
+  }
+
+  ngOnDestroy() {
+    this.renderer.removeClass(document.body, 'blurred-bg');
+  }
 
   login() {
     if (this.usuario === 'admin' && this.senha === 'admin') {

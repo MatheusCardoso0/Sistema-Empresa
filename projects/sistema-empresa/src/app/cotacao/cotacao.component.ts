@@ -1,16 +1,26 @@
-import { Component } from '@angular/core';
+import { Component, Renderer2, OnInit, OnDestroy } from '@angular/core';
 
 @Component({
   selector: 'app-cotacao',
   templateUrl: './cotacao.component.html',
   styleUrls: ['./cotacao.component.css']
 })
-export class CotacaoComponent {
+export class CotacaoComponent implements OnInit, OnDestroy {
   cotacao = {
     nome: '',
     email: '',
     tipo: ''
   };
+
+  constructor(private renderer: Renderer2) { }
+
+  ngOnInit() {
+    this.renderer.addClass(document.body, 'blurred-bg');
+  }
+
+  ngOnDestroy() {
+    this.renderer.removeClass(document.body, 'blurred-bg');
+  }
 
   enviarCotacao() {
     alert('Cotação enviada com sucesso!');

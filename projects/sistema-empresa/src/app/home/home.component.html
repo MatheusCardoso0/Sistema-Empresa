@@ -1,42 +1,39 @@
-<nav class="navbar navbar-expand-lg navbar-light bg-white shadow-sm mb-4">
+<nav class="navbar navbar-expand-lg navbar-dark bg-primary shadow-sm mb-0 py-0" style="min-height:64px;font-family:Arial,Helvetica,sans-serif;">
   <div class="container-fluid">
-    <a class="navbar-brand fw-bold text-primary" style="font-size:1.7rem;" href="#">
-      <img src="assets/logo-prover.png" alt="Prover Seguros" style="height:40px;vertical-align:middle;margin-right:10px;">
+    <a class="navbar-brand fw-bold text-light d-flex align-items-center" style="font-size:1.5rem;letter-spacing:1px;" href="#">
+  <img src="assets/logo-prover.svg" alt="Prover Seguros" style="height:38px;vertical-align:middle;margin-right:12px;">
     </a>
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
       <span class="navbar-toggler-icon"></span>
     </button>
     <div class="collapse navbar-collapse" id="navbarNav">
-      <ul class="navbar-nav ms-auto">
-        <li class="nav-item">
-          <a class="nav-link active" aria-current="page" href="#">Início</a>
+      <ul class="navbar-nav ms-auto align-items-center">
+        <li class="nav-item mx-1">
+          <a class="nav-link text-light fw-semibold" aria-current="page" href="#">Início</a>
         </li>
-        <li class="nav-item">
-          <a class="nav-link" href="#">Sobre</a>
+        <li class="nav-item mx-1">
+          <a class="nav-link text-light fw-semibold" href="#">Sobre</a>
         </li>
-        <li class="nav-item">
-          <a class="nav-link" href="#">Produtos</a>
+        <li class="nav-item mx-1">
+          <a class="nav-link text-light fw-semibold" href="#">Produtos</a>
         </li>
-        <li class="nav-item">
-          <a class="nav-link" href="#">Contato</a>
+        <li class="nav-item mx-1">
+          <a class="nav-link text-light fw-semibold" href="#">Contato</a>
         </li>
-        <li class="nav-item">
-          <button class="btn btn-outline-primary ms-3" routerLink="/login">Área Administrativa</button>
+        <li class="nav-item mx-2">
+          <button class="btn btn-outline-light px-3 py-1 fw-semibold border-2" style="border-radius:6px;" routerLink="/login">Área Administrativa</button>
         </li>
       </ul>
     </div>
   </div>
 </nav>
-<section class="hero bg-light py-5 mb-4 border-bottom">
+<section class="hero bg-white py-5 border-bottom" style="background:linear-gradient(90deg,#f8fafc 60%,#e3eaf3 100%);font-family:Arial,Helvetica,sans-serif;">
   <div class="container">
     <div class="row align-items-center">
       <div class="col-md-7">
-        <h1 class="display-4 fw-bold text-primary mb-3">Proteja o que importa com a <span class="text-dark">Prover Seguros</span></h1>
-        <p class="lead text-secondary mb-4">Soluções completas em seguros para sua família, empresa e patrimônio. Atendimento consultivo, confiança e tradição.</p>
-  <button class="btn btn-primary btn-lg" routerLink="/cotacao">Solicitar Cotação</button>
-      </div>
-      <div class="col-md-5 d-none d-md-block">
-        <img src="assets/hero-seguro.png" alt="Seguros" class="img-fluid rounded shadow-sm">
+        <h1 class="display-5 fw-bold text-dark mb-3" style="letter-spacing:0.5px;">Soluções em Seguros Corporativos e Pessoais</h1>
+        <p class="lead text-secondary mb-4" style="font-size:1.18rem;max-width:520px;">Consultoria especializada, atendimento personalizado e tradição em proteger empresas, famílias e patrimônios. Segurança, confiança e ética para o seu futuro.</p>
+        <button class="btn btn-outline-secondary btn-lg px-4 fw-semibold shadow-sm" style="border-radius:6px;letter-spacing:0.5px;" routerLink="/cotacao">Solicitar Cotação</button>
       </div>
     </div>
   </div>

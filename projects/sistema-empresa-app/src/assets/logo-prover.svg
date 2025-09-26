@@ -1,0 +1,10 @@
+<svg width="180" height="48" viewBox="0 0 180 48" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <g>
+    <!-- Escudo -->
+    <rect x="2" y="2" width="44" height="44" rx="12" fill="#2563eb"/>
+    <path d="M24 12c4.5 0 8.5 1.2 12 3.5V26c0 7.5-5.5 12.5-12 14-6.5-1.5-12-6.5-12-14V15.5C15.5 13.2 19.5 12 24 12Z" fill="#fff"/>
+    <path d="M24 16c3.5 0 6.5 0.9 9 2.5V26c0 5.5-4 9.2-9 10.5C19 35.2 15 31.5 15 26v-7.5C17.5 16.9 20.5 16 24 16Z" fill="#2563eb"/>
+  </g>
+  <text x="54" y="32" font-family="Segoe UI, Arial, sans-serif" font-size="28" font-weight="bold" fill="#22223b" letter-spacing="1">PROVER</text>
+  <text x="54" y="46" font-family="Segoe UI, Arial, sans-serif" font-size="14" font-weight="500" fill="#2563eb" letter-spacing="2">SEGUROS</text>
+</svg>
