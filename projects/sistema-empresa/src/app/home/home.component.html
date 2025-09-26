@@ -33,7 +33,7 @@
       <div class="col-md-7">
         <h1 class="display-4 fw-bold text-primary mb-3">Proteja o que importa com a <span class="text-dark">Prover Seguros</span></h1>
         <p class="lead text-secondary mb-4">Soluções completas em seguros para sua família, empresa e patrimônio. Atendimento consultivo, confiança e tradição.</p>
-        <button class="btn btn-primary btn-lg" (click)="abrirCotacao()">Solicitar Cotação</button>
+  <button class="btn btn-primary btn-lg" routerLink="/cotacao">Solicitar Cotação</button>
       </div>
       <div class="col-md-5 d-none d-md-block">
         <img src="assets/hero-seguro.png" alt="Seguros" class="img-fluid rounded shadow-sm">
@@ -41,34 +41,3 @@
     </div>
   </div>
 </section>
-
-<!-- Popup de Cotação -->
-<div class="popup-cotacao-backdrop" *ngIf="popupAberto" (click)="fecharCotacao()" (keydown.escape)="fecharCotacao()">
-  <div class="popup-cotacao-content shadow rounded p-4 bg-white" style="max-width:400px;margin:40px auto;" (click)="$event.stopPropagation()" (keydown.escape)="fecharCotacao()">
-    <button class="btn-close float-end" aria-label="Fechar" (click)="fecharCotacao()"></button>
-    <h2 class="h4 mb-3 text-primary">Cotação de Seguro</h2>
-    <form (ngSubmit)="enviarCotacao()" #cotacaoForm="ngForm">
-      <div class="mb-3">
-        <label class="form-label" for="cotacao-nome">Nome</label>
-        <input id="cotacao-nome" class="form-control" name="nome" [(ngModel)]="cotacao.nome" required />
-      </div>
-      <div class="mb-3">
-        <label class="form-label" for="cotacao-email">Email</label>
-        <input id="cotacao-email" class="form-control" name="email" [(ngModel)]="cotacao.email" required type="email" />
-      </div>
-      <div class="mb-3">
-        <label class="form-label" for="cotacao-tipo">Tipo de Seguro</label>
-        <select id="cotacao-tipo" class="form-select" name="tipo" [(ngModel)]="cotacao.tipo" required>
-          <option value="" disabled selected>Selecione</option>
-          <option value="auto">Auto</option>
-          <option value="residencial">Residencial</option>
-          <option value="vida">Vida</option>
-        </select>
-      </div>
-      <div class="d-flex justify-content-between">
-        <button class="btn btn-primary" type="submit" [disabled]="!cotacaoForm.form.valid">Enviar</button>
-        <button class="btn btn-outline-secondary" type="button" (click)="fecharCotacao()">Cancelar</button>
-      </div>
-    </form>
-  </div>
-</div>

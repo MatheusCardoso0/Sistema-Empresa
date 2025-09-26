@@ -6,13 +6,15 @@ import { HomeComponent } from 'projects/sistema-empresa/src/app/home/home.compon
 import { LoginComponent } from 'projects/sistema-empresa/src/app/login/login.component';
 import { AppComponent } from './app.component';
 import { AppRoutingModule } from './app-routing.module';
+import { CotacaoComponent } from 'projects/sistema-empresa/src/app/cotacao/cotacao.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     LoginComponent,
     AdminComponent,
-    HomeComponent
+    HomeComponent,
+    CotacaoComponent
   ],
   imports: [
     BrowserModule,

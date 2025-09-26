@@ -4,12 +4,14 @@ import { FormsModule } from '@angular/forms';
 import { HomeComponent } from './home/home.component';
 import { LoginComponent } from './login/login.component';
 import { AdminComponent } from './admin/admin.component';
+import { CotacaoComponent } from './cotacao/cotacao.component';
 
 @NgModule({
   declarations: [
     HomeComponent,
     LoginComponent,
-    AdminComponent
+    AdminComponent,
+    CotacaoComponent
   ],
   imports: [
     CommonModule,
@@ -18,7 +20,8 @@ import { AdminComponent } from './admin/admin.component';
   exports: [
     HomeComponent,
     LoginComponent,
-    AdminComponent
+    AdminComponent,
+    CotacaoComponent
   ]
 })
 export class AppModule {}
