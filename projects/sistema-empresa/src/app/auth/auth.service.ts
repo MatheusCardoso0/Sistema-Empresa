@@ -30,6 +30,14 @@ export class AuthService {
     );
   }
 
+  updateProfile(user: { name: string; username: string; password?: string }): Observable<{ user: AuthUser }> {
+    return this.http.put<{ user: AuthUser }>(
+      `${this.apiUrl}/auth/me`,
+      user,
+      { withCredentials: true }
+    );
+  }
+
   logout(): Observable<void> {
     return this.http.post<void>(
       `${this.apiUrl}/auth/logout`,

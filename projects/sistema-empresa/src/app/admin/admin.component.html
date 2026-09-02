@@ -1,1 +1,202 @@
-<p>admin works!</p>
+<main class="dashboard-shell">
+	<aside class="sidebar">
+		<div class="brand-mark">
+			<span class="brand-symbol">P</span>
+			<span>
+				<strong>Proved</strong>
+				<small>Corretora de Seguros</small>
+			</span>
+		</div>
+
+		<div class="workspace-label">Workspace</div>
+		<nav aria-label="Navegacao principal">
+				<ng-container *ngFor="let item of menuItems">
+					<button
+						*ngIf="!item.adminOnly || currentUser?.role === 'ADMIN'"
+						type="button"
+						class="menu-item"
+						[class.active]="activeSection === item.label"
+						(click)="selectSection(item.label)">
+						<span class="menu-icon" aria-hidden="true">{{ item.icon }}</span>
+						<span>{{ item.label }}</span>
+					</button>
+				</ng-container>
+		</nav>
+
+		<div class="sidebar-footer">
+			<div class="status-dot"></div>
+			<div>
+				<strong>Sistema online</strong>
+				<small>Ambiente local</small>
+			</div>
+		</div>
+	</aside>
+
+	<section class="dashboard-content">
+		<header class="topbar">
+			<div>
+				<span class="eyebrow">{{ activeSection }}</span>
+				<h1>{{ pageTitle }}</h1>
+				<p>{{ pageDescription }}</p>
+			</div>
+			<div class="profile-chip">
+				<span class="avatar">{{ userInitial }}</span>
+				<div class="profile-main">
+					<span class="profile-details"><strong>{{ currentUser?.name || userRoleLabel }}</strong><small>Perfil {{ userRoleLabel.toLowerCase() }}</small></span>
+					<div class="profile-actions">
+						<button type="button" (click)="selectSection('Minha conta')">Minha conta</button>
+						<button type="button" (click)="logout()" aria-label="Sair da conta">Sair</button>
+					</div>
+				</div>
+			</div>
+		</header>
+
+		<section *ngIf="activeSection === 'Visão geral'" class="metric-grid" aria-label="Resumo da operacao">
+			<article *ngFor="let metric of metrics" class="metric-card" [class]="metric.tone">
+				<div class="metric-heading">
+					<span>{{ metric.label }}</span>
+					<span class="metric-arrow" aria-hidden="true">↗</span>
+				</div>
+				<strong class="metric-value">{{ metric.value }}</strong>
+				<small>{{ metric.detail }}</small>
+			</article>
+		</section>
+
+		<section class="content-grid">
+			<article *ngIf="activeSection === 'Visão geral' || activeSection === 'Clientes'" class="panel clients-panel">
+				<div class="panel-heading">
+					<div>
+						<span class="eyebrow">Carteira</span>
+						<h2>Clientes recentes</h2>
+					</div>
+					  <button class="outline-button" type="button" (click)="openClientForm()">
+						<span aria-hidden="true">+</span> Novo cliente
+					</button>
+				</div>
+				<div *ngIf="!formVisible" class="search-row">
+					<input type="search" [(ngModel)]="clientSearch" placeholder="Buscar por nome, CPF, CNPJ ou contato" aria-label="Buscar clientes" />
+					<span>{{ filteredClients.length }} resultado{{ filteredClients.length === 1 ? '' : 's' }}</span>
+				</div>
+				<div *ngIf="!formVisible && clients.length === 0" class="empty-state">
+					<div class="empty-icon" aria-hidden="true">◎</div>
+					<h3>Sua carteira começa aqui</h3>
+					<p>Cadastre o primeiro cliente para acompanhar contatos, documentos e seguros em um só lugar.</p>
+					  <button class="primary-button" type="button" (click)="openClientForm()">
+						<span aria-hidden="true">+</span> Cadastrar cliente
+					</button>
+				</div>
+				<div *ngIf="!formVisible && clients.length > 0 && filteredClients.length === 0" class="empty-state compact-empty">
+					<div class="empty-icon" aria-hidden="true">⌕</div><h3>Nenhum cliente encontrado</h3><p>Tente buscar por outro nome, documento ou contato.</p>
+				</div>
+				<div *ngIf="!formVisible && filteredClients.length > 0" class="client-list">
+					<div *ngFor="let client of filteredClients" class="client-row">
+						<div><strong>{{ client.name }}</strong><small>{{ client.email || 'Sem email informado' }}</small></div>
+						<div class="client-actions"><button type="button" class="table-button" (click)="openClientForm(client)">Editar</button><button type="button" class="table-button danger" (click)="removeClient(client)">Excluir</button></div>
+					</div>
+				</div>
+				<form *ngIf="formVisible" class="client-form" #clientFormRef="ngForm" (ngSubmit)="saveClient()">
+					<div class="form-grid">
+						<label>Nome completo <span class="required-mark">*</span><input name="name" [(ngModel)]="clientForm.name" required /></label>
+						<label>Email <span class="required-mark">*</span><input name="email" type="email" [(ngModel)]="clientForm.email" required /></label>
+						<label>Documento <span class="required-mark">*</span><select name="clientDocumentType" [(ngModel)]="clientDocumentType" (change)="changeDocumentType()"><option value="CPF">CPF</option><option value="CNPJ">CNPJ</option></select></label>
+						<label>{{ clientDocumentType }} <span class="required-mark">*</span><input name="clientDocumentValue" [(ngModel)]="clientDocumentValue" [placeholder]="clientDocumentType === 'CPF' ? '000.000.000-00' : '00.000.000/0000-00'" required /></label>
+						<label>Data de nascimento <span class="required-mark">*</span><input name="birth_date" type="date" [(ngModel)]="clientForm.birth_date" required /></label>
+						<label>Telefone <span class="required-mark">*</span><input name="phone" [(ngModel)]="clientForm.phone" required /></label>
+						<label>Endereço <span class="required-mark">*</span><input name="address" [(ngModel)]="clientForm.address" required /></label>
+						<label>Número <span class="required-mark">*</span><input name="address_number" [(ngModel)]="clientForm.address_number" required /></label>
+						<label class="wide">Complemento<input name="complement" [(ngModel)]="clientForm.complement" /></label>
+					</div>
+					<div class="form-actions"><button type="button" class="outline-button" (click)="closeClientForm()">Cancelar</button><button type="submit" class="primary-button" [disabled]="!clientFormRef.form.valid || !clientDocumentValue" [attr.aria-disabled]="!clientFormRef.form.valid || !clientDocumentValue">{{ editingClient ? 'Salvar alterações' : 'Cadastrar cliente' }}</button></div>
+				</form>
+				<p *ngIf="feedback" class="feedback">{{ feedback }}</p>
+			</article>
+
+			<article *ngIf="activeSection === 'Minha conta'" class="panel account-panel">
+				<div class="panel-heading"><div><span class="eyebrow">Perfil</span><h2>Minha conta</h2></div></div>
+				<form class="client-form" #profileFormRef="ngForm" (ngSubmit)="saveProfile()">
+					<div class="form-grid">
+						<label>Nome completo<input name="profileName" [(ngModel)]="profileForm.name" required /></label>
+						<label>Usuário<input name="profileUsername" [(ngModel)]="profileForm.username" required /></label>
+						<label>Nova senha<input name="profilePassword" type="password" [(ngModel)]="profileForm.password" /></label>
+					</div>
+					<div class="form-actions"><button type="submit" class="primary-button" [disabled]="!profileFormRef.form.valid">Salvar alterações</button></div>
+				</form>
+				<p *ngIf="feedback" class="feedback">{{ feedback }}</p>
+			</article>
+
+			<article *ngIf="activeSection === 'Visão geral' && currentUser?.role === 'ADMIN'" class="panel activity-panel">
+				<div class="panel-heading">
+					<div>
+						<span class="eyebrow">Acompanhamento</span>
+						<h2>Proximos passos</h2>
+					</div>
+				</div>
+				<ol class="steps-list">
+					<li class="step-done"><span>1</span><div><strong>Banco conectado</strong><small>PostgreSQL esta pronto</small></div></li>
+					<li><span>2</span><div><strong>Cadastrar clientes</strong><small>Dados e documentos principais</small></div></li>
+					<li><span>3</span><div><strong>Adicionar seguros</strong><small>Vincule apolices aos clientes</small></div></li>
+				</ol>
+			</article>
+
+			<article *ngIf="activeSection === 'Corretores' && currentUser?.role === 'ADMIN'" class="panel users-panel">
+				<div class="panel-heading">
+					<div><span class="eyebrow">Acessos</span><h2>Corretores do sistema</h2></div>
+					<button class="outline-button" type="button" (click)="openUserForm()"><span aria-hidden="true">+</span> Novo corretor</button>
+				</div>
+				<div *ngIf="!userFormVisible && users.length === 0" class="empty-state">
+					<div class="empty-icon" aria-hidden="true">◎</div><h3>Nenhum corretor cadastrado</h3>
+					<p>Crie acessos individuais para sua equipe trabalhar com segurança.</p>
+					<button class="primary-button" type="button" (click)="openUserForm()"><span aria-hidden="true">+</span> Criar corretor</button>
+				</div>
+				<div *ngIf="!userFormVisible && users.length > 0" class="client-list">
+					<div *ngFor="let user of users" class="client-row">
+						<div><strong>{{ user.name }}</strong><small>{{ user.username }} · {{ user.role === 'ADMIN' ? 'Administrador' : 'Corretor' }} · {{ user.active ? 'Ativo' : 'Inativo' }}</small></div>
+						<div class="client-actions"><button type="button" class="table-button" (click)="openUserForm(user)">Editar</button><button type="button" class="table-button danger" (click)="removeUser(user)">Excluir</button></div>
+					</div>
+				</div>
+				<form *ngIf="userFormVisible" class="client-form" #userFormRef="ngForm" (ngSubmit)="saveUser()">
+					<div class="form-grid">
+						<label>Nome completo<input name="name" [(ngModel)]="userForm.name" required /></label>
+						<label>Usuário<input name="username" [(ngModel)]="userForm.username" required /></label>
+						<label>Senha<input name="password" type="password" [(ngModel)]="userForm.password" [required]="!editingUser" /></label>
+						<label>Perfil<select name="role" [(ngModel)]="userForm.role"><option value="CORRETOR">Corretor</option><option value="ADMIN">Administrador</option></select></label>
+					</div>
+					<div class="form-actions"><button type="button" class="outline-button" (click)="closeUserForm()">Cancelar</button><button type="submit" class="primary-button" [disabled]="!userFormRef.form.valid">{{ editingUser ? 'Salvar alterações' : 'Criar corretor' }}</button></div>
+				</form>
+				<p *ngIf="feedback" class="feedback">{{ feedback }}</p>
+			</article>
+
+			<article *ngIf="activeSection === 'Seguros'" class="panel insurance-panel">
+				<div class="panel-heading">
+					<div><span class="eyebrow">Carteira</span><h2>Seguros cadastrados</h2></div>
+					<button class="outline-button" type="button" (click)="openInsuranceForm()"><span aria-hidden="true">+</span> Novo seguro</button>
+				</div>
+				<div *ngIf="!insuranceFormVisible && insurances.length === 0" class="empty-state">
+					<div class="empty-icon" aria-hidden="true">□</div><h3>Nenhum seguro cadastrado</h3>
+					<p>Vincule a primeira apólice a um cliente para acompanhar vigência e seguradora.</p>
+					<button class="primary-button" type="button" (click)="openInsuranceForm()"><span aria-hidden="true">+</span> Cadastrar seguro</button>
+				</div>
+				<div *ngIf="!insuranceFormVisible && insurances.length > 0" class="client-list">
+					<div *ngFor="let insurance of insurances" class="client-row">
+						<div><strong>{{ insurance.client_name }} · {{ insurance.insurance_type }}</strong><small>{{ insurance.insurer }} · {{ insurance.status }}<span *ngIf="insurance.end_date"> · vence em {{ insurance.end_date | date:'dd/MM/yyyy' }}</span></small></div>
+						<div class="client-actions"><button type="button" class="table-button" (click)="openInsuranceForm(insurance)">Editar</button><button type="button" class="table-button danger" (click)="removeInsurance(insurance)">Excluir</button></div>
+					</div>
+				</div>
+				<form *ngIf="insuranceFormVisible" class="client-form" #insuranceFormRef="ngForm" (ngSubmit)="saveInsurance()">
+					<div class="form-grid">
+						<label>Cliente <span class="required-mark">*</span><select name="client_id" [(ngModel)]="insuranceForm.client_id" required><option [ngValue]="0" disabled>Selecione o cliente</option><option *ngFor="let client of clients" [ngValue]="client.id">{{ client.name }}</option></select></label>
+						<label>Tipo de seguro <span class="required-mark">*</span><select name="insurance_type" [(ngModel)]="insuranceForm.insurance_type" required><option value="" disabled>Selecione o tipo</option><option *ngFor="let type of insuranceTypes" [value]="type">{{ type }}</option></select></label>
+						<label>Seguradora <span class="required-mark">*</span><select name="insurer" [(ngModel)]="insuranceForm.insurer" required><option value="" disabled>Selecione a seguradora</option><option *ngFor="let insurer of insurers" [value]="insurer">{{ insurer }}</option></select></label>
+						<label>Número da apólice<input name="policy_number" [(ngModel)]="insuranceForm.policy_number" /></label>
+						<label>Início da vigência <span class="required-mark">*</span><input name="start_date" type="date" [(ngModel)]="insuranceForm.start_date" required /></label>
+						<label>Fim da vigência <span class="required-mark">*</span><input name="end_date" type="date" [(ngModel)]="insuranceForm.end_date" [min]="insuranceForm.start_date" required /></label>
+						<label>Status<select name="status" [(ngModel)]="insuranceForm.status"><option value="ATIVO">Ativo</option><option value="PENDENTE">Pendente</option><option value="CANCELADO">Cancelado</option></select></label>
+						<label class="wide">Observações<textarea name="notes" [(ngModel)]="insuranceForm.notes"></textarea></label>
+					</div>
+					<div class="form-actions"><button type="button" class="outline-button" (click)="closeInsuranceForm()">Cancelar</button><button type="submit" class="primary-button" [disabled]="!insuranceFormRef.form.valid || !insuranceForm.client_id || insuranceDatesInvalid" [attr.aria-disabled]="!insuranceFormRef.form.valid || !insuranceForm.client_id || insuranceDatesInvalid">{{ editingInsurance ? 'Salvar alterações' : 'Cadastrar seguro' }}</button></div>
+				</form>
+				<p *ngIf="feedback" class="feedback">{{ feedback }}</p>
+			</article>
+		</section>
+	</section>
+</main>
