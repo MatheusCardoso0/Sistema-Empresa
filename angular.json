@@ -1,7 +1,8 @@
 {
   "$schema": "./node_modules/@angular/cli/lib/config/schema.json",
   "cli": {
-    "analytics": "74b7d05c-7ffe-4fad-a20d-f47808123030"
+    "analytics": "74b7d05c-7ffe-4fad-a20d-f47808123030",
+    "defaultProject": "sistema-empresa-app"
   },
   "version": 1,
   "newProjectRoot": "projects",
@@ -18,12 +19,15 @@
       "prefix": "app",
       "architect": {
         "build": {
-          "builder": "@angular-devkit/build-angular:browser",
+          "builder": "@angular/build:application",
           "options": {
-            "outputPath": "dist/sistema-empresa",
+            "outputPath": {
+              "base": "dist/sistema-empresa"
+            },
             "index": "src/index.html",
-            "main": "src/main.ts",
-            "polyfills": "src/polyfills.ts",
+            "polyfills": [
+              "src/polyfills.ts"
+            ],
             "tsConfig": "tsconfig.app.json",
             "assets": [
               "src/favicon.ico",
@@ -32,7 +36,8 @@
             "styles": [
               "src/styles.css"
             ],
-            "scripts": []
+            "scripts": [],
+            "browser": "src/main.ts"
           },
           "configurations": {
             "production": {
@@ -57,9 +62,7 @@
               "outputHashing": "all"
             },
             "development": {
-              "buildOptimizer": false,
               "optimization": false,
-              "vendorChunk": true,
               "extractLicenses": false,
               "sourceMap": true,
               "namedChunks": true
@@ -68,28 +71,30 @@
           "defaultConfiguration": "production"
         },
         "serve": {
-          "builder": "@angular-devkit/build-angular:dev-server",
+          "builder": "@angular/build:dev-server",
           "configurations": {
             "production": {
-              "browserTarget": "sistema-empresa:build:production"
+              "buildTarget": "sistema-empresa:build:production"
             },
             "development": {
-              "browserTarget": "sistema-empresa:build:development"
+              "buildTarget": "sistema-empresa:build:development"
             }
           },
           "defaultConfiguration": "development"
         },
         "extract-i18n": {
-          "builder": "@angular-devkit/build-angular:extract-i18n",
+          "builder": "@angular/build:extract-i18n",
           "options": {
-            "browserTarget": "sistema-empresa:build"
+            "buildTarget": "sistema-empresa:build"
           }
         },
         "test": {
-          "builder": "@angular-devkit/build-angular:karma",
+          "builder": "@angular/build:karma",
           "options": {
             "main": "src/test.ts",
-            "polyfills": "src/polyfills.ts",
+            "polyfills": [
+              "src/polyfills.ts"
+            ],
             "tsConfig": "tsconfig.spec.json",
             "karmaConfig": "karma.conf.js",
             "assets": [
@@ -112,12 +117,15 @@
       "prefix": "app",
       "architect": {
         "build": {
-          "builder": "@angular-devkit/build-angular:browser",
+          "builder": "@angular/build:application",
           "options": {
-            "outputPath": "dist/sistema-empresa-app",
+            "outputPath": {
+              "base": "dist/sistema-empresa-app"
+            },
             "index": "projects/sistema-empresa-app/src/index.html",
-            "main": "projects/sistema-empresa-app/src/main.ts",
-            "polyfills": "projects/sistema-empresa-app/src/polyfills.ts",
+            "polyfills": [
+              "projects/sistema-empresa-app/src/polyfills.ts"
+            ],
             "tsConfig": "projects/sistema-empresa-app/tsconfig.app.json",
             "assets": [
               "projects/sistema-empresa-app/src/favicon.ico",
@@ -126,7 +134,8 @@
             "styles": [
               "projects/sistema-empresa-app/src/styles.css"
             ],
-            "scripts": []
+            "scripts": [],
+            "browser": "projects/sistema-empresa-app/src/main.ts"
           },
           "configurations": {
             "production": {
@@ -151,9 +160,7 @@
               "outputHashing": "all"
             },
             "development": {
-              "buildOptimizer": false,
               "optimization": false,
-              "vendorChunk": true,
               "extractLicenses": false,
               "sourceMap": true,
               "namedChunks": true
@@ -162,28 +169,30 @@
           "defaultConfiguration": "production"
         },
         "serve": {
-          "builder": "@angular-devkit/build-angular:dev-server",
+          "builder": "@angular/build:dev-server",
           "configurations": {
             "production": {
-              "browserTarget": "sistema-empresa-app:build:production"
+              "buildTarget": "sistema-empresa-app:build:production"
             },
             "development": {
-              "browserTarget": "sistema-empresa-app:build:development"
+              "buildTarget": "sistema-empresa-app:build:development"
             }
           },
           "defaultConfiguration": "development"
         },
         "extract-i18n": {
-          "builder": "@angular-devkit/build-angular:extract-i18n",
+          "builder": "@angular/build:extract-i18n",
           "options": {
-            "browserTarget": "sistema-empresa-app:build"
+            "buildTarget": "sistema-empresa-app:build"
           }
         },
         "test": {
-          "builder": "@angular-devkit/build-angular:karma",
+          "builder": "@angular/build:karma",
           "options": {
             "main": "projects/sistema-empresa-app/src/test.ts",
-            "polyfills": "projects/sistema-empresa-app/src/polyfills.ts",
+            "polyfills": [
+              "projects/sistema-empresa-app/src/polyfills.ts"
+            ],
             "tsConfig": "projects/sistema-empresa-app/tsconfig.spec.json",
             "karmaConfig": "projects/sistema-empresa-app/karma.conf.js",
             "assets": [
@@ -198,6 +207,5 @@
         }
       }
     }
-  },
-  "defaultProject": "sistema-empresa-app"
+  }
 }

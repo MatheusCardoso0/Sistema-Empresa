@@ -1,9 +1,11 @@
-import { Component, Renderer2, OnInit, OnDestroy } from '@angular/core';
+import { Component, Renderer2, OnInit, OnDestroy, ChangeDetectionStrategy } from '@angular/core';
 
 @Component({
-  selector: 'app-cotacao',
-  templateUrl: './cotacao.component.html',
-  styleUrls: ['./cotacao.component.css']
+    selector: 'app-cotacao',
+    templateUrl: './cotacao.component.html',
+    styleUrls: ['./cotacao.component.css'],
+    changeDetection: ChangeDetectionStrategy.Eager,
+    standalone: false
 })
 export class CotacaoComponent implements OnInit, OnDestroy {
   cotacao = {

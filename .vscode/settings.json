@@ -1,0 +1,9 @@
+{
+    "chat.tools.terminal.autoApprove": {
+        "npx ng": true,
+        "/^node -p \"require\\('\\./package\\.json'\\)\\.devDependencies\\['@angular/core'\\]\" && node -p \"require\\('\\./package\\.json'\\)\\.devDependencies\\['@angular/cli'\\]\" && node -p \"require\\('\\./package\\.json'\\)\\.devDependencies\\['@angular/build'\\]\"$/": {
+            "approve": true,
+            "matchCommandLine": true
+        }
+    }
+}
