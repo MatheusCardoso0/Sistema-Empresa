@@ -1,4 +1,6 @@
 import { Component, Renderer2, OnInit, OnDestroy, ChangeDetectionStrategy } from '@angular/core';
+import { Router } from '@angular/router';
+import { AuthService } from '../auth/auth.service';
 
 @Component({
     selector: 'app-login',
@@ -12,7 +14,11 @@ export class LoginComponent implements OnInit, OnDestroy {
   senha = '';
   erro = false;
 
-  constructor(private readonly renderer: Renderer2) { }
+  constructor(
+    private readonly renderer: Renderer2,
+    private readonly authService: AuthService,
+    private readonly router: Router
+  ) { }
 
   ngOnInit() {
     this.renderer.addClass(document.body, 'blurred-bg');
@@ -23,19 +29,15 @@ export class LoginComponent implements OnInit, OnDestroy {
   }
 
   login() {
-    if (this.usuario === 'admin' && this.senha === 'admin') {
-      this.erro = false;
-      alert('Login realizado com sucesso!');
-      // Redirecionar para área administrativa se desejar
-      this.fecharLogin();
-    } else {
-      this.erro = true;
-    }
+    this.erro = false;
+    this.authService.login(this.usuario, this.senha).subscribe({
+      next: () => this.router.navigate(['/admin']),
+      error: () => this.erro = true
+    });
   }
 
   fecharLogin(event?: Event) {
     if (event) event.preventDefault();
-    // Aqui você pode navegar para a home ou esconder o componente, conforme a navegação do app
-    window.history.back();
+    this.router.navigate(['/login']);
   }
 }

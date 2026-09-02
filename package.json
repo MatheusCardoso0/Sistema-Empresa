@@ -5,6 +5,8 @@
   "license": "MIT",
   "scripts": {
     "start": "ng serve sistema-empresa-app",
+    "api": "node server/index.js",
+    "seed:admin": "node server/seed-admin.js",
     "build": "ng build sistema-empresa-app",
     "watch": "ng build --watch --configuration development",
     "test": "ng test sistema-empresa-app",
@@ -16,7 +18,12 @@
   "typings": "src/sistema-empresa",
   "private": true,
   "dependencies": {
+    "bcryptjs": "^3.0.3",
+    "cors": "^2.8.6",
+    "dotenv": "^17.4.2",
     "express": "^4.17.1",
+    "jsonwebtoken": "^9.0.3",
+    "pg": "^8.23.0",
     "tslib": "^2.4.0",
     "xlsx": "^0.17.0"
   },
@@ -32,7 +39,9 @@
     "@angular/platform-browser": "~22.1.4",
     "@angular/platform-browser-dynamic": "~22.1.4",
     "@angular/router": "~22.1.4",
+    "@types/express": "^5.0.6",
     "@types/jasmine": "~4.3.0",
+    "@types/jsonwebtoken": "^9.0.10",
     "@types/node": "^18.0.0",
     "istanbul-lib-instrument": "^6.0.3",
     "jasmine-core": "~4.6.0",

@@ -4,6 +4,12 @@
         "/^node -p \"require\\('\\./package\\.json'\\)\\.devDependencies\\['@angular/core'\\]\" && node -p \"require\\('\\./package\\.json'\\)\\.devDependencies\\['@angular/cli'\\]\" && node -p \"require\\('\\./package\\.json'\\)\\.devDependencies\\['@angular/build'\\]\"$/": {
             "approve": true,
             "matchCommandLine": true
-        }
+        },
+        "/^node --check server/index\\.js && node --check server/seed-admin\\.js$/": {
+            "approve": true,
+            "matchCommandLine": true
+        },
+        "'/c/Program": true,
+        "true": true
     }
 }
